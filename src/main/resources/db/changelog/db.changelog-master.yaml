@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: 0.0.1/changelog-create-yourrating-schema.sql
+      relativeToChangelogFile: true # true позволяет сократить путь до файла с db/changelog/... до текущего 0.0.1/...
