@@ -4,3 +4,9 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driverClassName: org.postgresql.Driver
+# Для отображения дополнительных логов
+logging:
+  level:
+    org:
+      springframework:
+        security: debug

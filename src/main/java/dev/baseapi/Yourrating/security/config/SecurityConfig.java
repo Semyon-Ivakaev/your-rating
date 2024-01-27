@@ -19,10 +19,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // Указываем на какой END_POINT открыт доступ всем. .anyRequest().authenticated() - на остальные только для авторизованных
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/v1/accounts/register").permitAll()
+                .authorizeHttpRequests(auth -> auth
+                        // Указываем на какой END_POINT открыт доступ всем. .anyRequest().authenticated() - на остальные только для авторизованных
+                        .requestMatchers("/api/v1/accounts/register").permitAll()
                         // будет перебрасывать на 500 код, вместо 401 - не авторизован
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/v1/demo/just-role-user").hasRole("USER")
+                        .requestMatchers("/api/v1/demo/just-role-admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults());
