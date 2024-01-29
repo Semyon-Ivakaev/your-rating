@@ -13,7 +13,8 @@ public class CommentToCommentResponseMapperImpl implements CommentToCommentRespo
         return new CommentResponse(
                 model.getId(),
                 model.getMessage(),
-                model.getCreatedTimestamp()
+                model.getCreatedTimestamp(),
+                model.getModifiedTimestamp()
         );
     }
 }

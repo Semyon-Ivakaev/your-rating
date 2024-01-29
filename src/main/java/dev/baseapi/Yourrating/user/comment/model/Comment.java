@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
@@ -24,6 +25,10 @@ public class Comment {
     @CreatedDate // @EntityListeners
     @Column(nullable = false, updatable = false) // создается, но не обновляется
     private Instant createdTimestamp;
+
+    @LastModifiedDate
+    @Column(nullable = false)
+    private Instant modifiedTimestamp;
 
     @ManyToOne(optional = false)
     private UserProfile userProfile;

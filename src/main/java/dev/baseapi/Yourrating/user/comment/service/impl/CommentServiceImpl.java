@@ -5,6 +5,8 @@ import dev.baseapi.Yourrating.user.comment.repository.CommentRepository;
 import dev.baseapi.Yourrating.user.comment.service.CommentService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -17,5 +19,15 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment createComment(Comment comment) {
         return this.commentRepository.save(comment);
+    }
+
+    @Override
+    public Comment updateComment(Comment comment) {
+        return this.commentRepository.save(comment);
+    }
+
+    @Override
+    public Optional<Comment> findCommentById(long commentId) {
+        return this.commentRepository.findById(commentId);
     }
 }

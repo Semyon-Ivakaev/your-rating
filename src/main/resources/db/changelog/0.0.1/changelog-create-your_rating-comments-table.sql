@@ -18,3 +18,17 @@ alter table your_rating.comments
         foreign key (user_profile_id) references your_rating.user_profiles (id);
 
 --rollback alter table your_rating.comments drop constraint comments__user_profiles__fk;
+
+
+--changeset SemyonIvakaev:add-your_rating-comments-add-column-modified_timestamp
+--comment add column modified_timestamp to your_rating.comments table
+alter table your_rating.comments
+    add column modified_timestamp timestamp;
+
+update your_rating.comments
+set modified_timestamp = created_timestamp
+where modified_timestamp is null;
+
+alter table your_rating.comments
+    alter column modified_timestamp set not null;
+--rollback alter table your_rating.comments drop column modified_timestamp;

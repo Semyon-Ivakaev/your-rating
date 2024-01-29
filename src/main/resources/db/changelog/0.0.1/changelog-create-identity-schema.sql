@@ -50,7 +50,7 @@ alter table identity.user_accounts_roles
 --rollback alter table identity.user_accounts_roles drop constraint user_accounts_roles__user_accounts__fk;
 --rollback alter table identity.user_accounts_roles drop constraint user_accounts_roles_unique;
 
---changeset Semyon:Ivakaev:add-data-to-user_roles_table
+--changeset SemyonIvakaev:add-data-to-user_roles_table
 --comment add roles to user_roles table
 insert into identity.user_roles(authority)
 values ('ROLE_USER'), ('ROLE_ADMIN')
