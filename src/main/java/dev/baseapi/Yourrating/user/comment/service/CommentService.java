@@ -10,4 +10,6 @@ public interface CommentService {
     Comment updateComment(Comment comment);
 
     Optional<Comment> findCommentById(long commentId);
+
+    void deleteComment(long commentId);
 }

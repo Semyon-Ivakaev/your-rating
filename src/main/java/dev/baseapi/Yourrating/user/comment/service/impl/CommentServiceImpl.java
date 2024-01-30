@@ -30,4 +30,9 @@ public class CommentServiceImpl implements CommentService {
     public Optional<Comment> findCommentById(long commentId) {
         return this.commentRepository.findById(commentId);
     }
+
+    @Override
+    public void deleteComment(long commentId) {
+        this.commentRepository.deleteById(commentId);
+    }
 }
