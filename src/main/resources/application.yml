@@ -5,9 +5,11 @@ spring:
     password: ${DB_PASSWORD}
     driverClassName: org.postgresql.Driver
   jpa:
+    show-sql: true
     properties:
       # Для автоматического перевода Timestamp в нужную временную зону
       hibernate.jdbc.time_zone: UTC
+      hibernate.format_sql: true
 # Для отображения дополнительных логов
 logging:
   level:

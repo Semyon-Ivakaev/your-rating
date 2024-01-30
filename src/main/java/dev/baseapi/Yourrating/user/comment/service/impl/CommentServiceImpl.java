@@ -3,8 +3,11 @@ package dev.baseapi.Yourrating.user.comment.service.impl;
 import dev.baseapi.Yourrating.user.comment.model.Comment;
 import dev.baseapi.Yourrating.user.comment.repository.CommentRepository;
 import dev.baseapi.Yourrating.user.comment.service.CommentService;
+import dev.baseapi.Yourrating.user.profile.model.UserProfile;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -34,5 +37,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void deleteComment(long commentId) {
         this.commentRepository.deleteById(commentId);
+    }
+
+    @Override
+    public Collection<Comment> findAllComments(UserProfile owner, Pageable pageable) {
+        return this.commentRepository.findAllByUserProfile(owner, pageable);
     }
 }
