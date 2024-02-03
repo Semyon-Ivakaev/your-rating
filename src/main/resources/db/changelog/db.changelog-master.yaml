@@ -11,3 +11,6 @@ databaseChangeLog:
   - include:
       file: 0.0.1/changelog-create-your_rating-comments-table.sql
       relativeToChangelogFile: true
+  - include:
+      file: 0.0.1/changelog-create-your_rating-subscriptions-table.sql
+      relativeToChangelogFile: true

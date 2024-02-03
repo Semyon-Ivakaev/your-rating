@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface UserProfileService {
     void createUserProfile(UserProfile userProfile);
-    Optional<UserProfile> findUserProfileById(long userProfileId);
+    UserProfile findUserProfileByIdRequired(long userProfileId);
 }
