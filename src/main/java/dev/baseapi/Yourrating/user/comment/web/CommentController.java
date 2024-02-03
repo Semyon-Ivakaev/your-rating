@@ -4,10 +4,7 @@ import dev.baseapi.Yourrating.user.comment.usecase.CommentAddUseCase;
 import dev.baseapi.Yourrating.user.comment.usecase.CommentDeleteUseCase;
 import dev.baseapi.Yourrating.user.comment.usecase.CommentEditUseCase;
 import dev.baseapi.Yourrating.user.comment.usecase.CommentFindUseCase;
-import dev.baseapi.Yourrating.user.comment.web.model.CommentAddRequest;
-import dev.baseapi.Yourrating.user.comment.web.model.CommentEditRequest;
-import dev.baseapi.Yourrating.user.comment.web.model.CommentFindRequest;
-import dev.baseapi.Yourrating.user.comment.web.model.CommentResponse;
+import dev.baseapi.Yourrating.user.comment.web.model.*;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
@@ -47,7 +44,7 @@ public class CommentController {
     }
 
     @GetMapping
-    public Collection<CommentResponse> findOwnerComments(@PathParam("page page")int page, @PathParam("limit") int limit) {
+    public CommentPageResponse findOwnerComments(@PathParam("page") int page, @PathParam("limit") int limit) {
         CommentFindRequest commentFindRequest = new CommentFindRequest(page, limit);
         return this.commentFindUseCase.findComments(commentFindRequest);
     }

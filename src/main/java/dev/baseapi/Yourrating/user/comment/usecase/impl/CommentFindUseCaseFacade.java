@@ -1,20 +1,18 @@
 package dev.baseapi.Yourrating.user.comment.usecase.impl;
 
-import dev.baseapi.Yourrating.user.comment.mapper.CommentToCommentResponseMapper;
+import dev.baseapi.Yourrating.user.comment.mapper.CommentPageToCommentPageResponseMapper;
 import dev.baseapi.Yourrating.user.comment.model.Comment;
 import dev.baseapi.Yourrating.user.comment.service.CommentService;
 import dev.baseapi.Yourrating.user.comment.usecase.CommentFindUseCase;
 import dev.baseapi.Yourrating.user.comment.web.model.CommentFindRequest;
-import dev.baseapi.Yourrating.user.comment.web.model.CommentResponse;
+import dev.baseapi.Yourrating.user.comment.web.model.CommentPageResponse;
 import dev.baseapi.Yourrating.user.profile.api.service.CurrentUserProfileApiService;
 import dev.baseapi.Yourrating.user.profile.model.UserProfile;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 import static dev.baseapi.Yourrating.user.comment.model.Comment_.CREATED_TIMESTAMP;
 
@@ -23,17 +21,18 @@ public class CommentFindUseCaseFacade implements CommentFindUseCase {
 
     private final CurrentUserProfileApiService currentUserProfileApiService;
     private final CommentService commentService;
-    private final CommentToCommentResponseMapper commentToCommentResponseMapper;
+    private final CommentPageToCommentPageResponseMapper commentPageToCommentPageResponseMapper;
 
     public CommentFindUseCaseFacade(CurrentUserProfileApiService currentUserProfileApiService,
-                                    CommentService commentService, CommentToCommentResponseMapper commentToCommentResponseMapper) {
+                                    CommentService commentService,
+                                    CommentPageToCommentPageResponseMapper commentPageToCommentPageResponseMapper) {
         this.currentUserProfileApiService = currentUserProfileApiService;
         this.commentService = commentService;
-        this.commentToCommentResponseMapper = commentToCommentResponseMapper;
+        this.commentPageToCommentPageResponseMapper = commentPageToCommentPageResponseMapper;
     }
 
     @Override
-    public Collection<CommentResponse> findComments(CommentFindRequest findRequest) {
+    public CommentPageResponse findComments(CommentFindRequest findRequest) {
 
         UserProfile owner = this.currentUserProfileApiService.currentUserProfile();
 
@@ -43,10 +42,8 @@ public class CommentFindUseCaseFacade implements CommentFindUseCase {
 
         Pageable pageable = PageRequest.of(findRequest.page(), findRequest.limit(), sort);
 
-        Collection<Comment> allOwnerComments = this.commentService.findAllComments(owner, pageable);
+        Page<Comment> allOwnerComments = this.commentService.findAllComments(owner, pageable);
 
-        return allOwnerComments.stream()
-                .map(this.commentToCommentResponseMapper::map)
-                .collect(Collectors.toList());
+        return commentPageToCommentPageResponseMapper.map(allOwnerComments);
     }
 }

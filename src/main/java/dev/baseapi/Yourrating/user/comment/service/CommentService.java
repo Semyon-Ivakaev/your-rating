@@ -2,6 +2,7 @@ package dev.baseapi.Yourrating.user.comment.service;
 
 import dev.baseapi.Yourrating.user.comment.model.Comment;
 import dev.baseapi.Yourrating.user.profile.model.UserProfile;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Collection;
@@ -16,5 +17,5 @@ public interface CommentService {
 
     void deleteComment(long commentId);
 
-    Collection<Comment> findAllComments(UserProfile owner, Pageable pageable);
+    Page<Comment> findAllComments(UserProfile owner, Pageable pageable);
 }
